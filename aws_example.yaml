@@ -3,7 +3,7 @@ cluster_name: default
 
 # The minimum number of workers nodes to launch in addition to the head
 # node. This number should be >= 0.
-min_workers: 2
+min_workers: 0
 
 # The maximum number of workers nodes to launch in addition to the head
 # node. This takes precedence over min_workers.
@@ -57,7 +57,7 @@ head_node:
     InstanceType: t2.micro
     ImageId: ami-0a634ae95e11c6f91 # Ubuntu Server 18.04 LTS (HVM)
 
-    SecurityGroupIds: [sg-xxxxxxxx]
+    SecurityGroupIds: [sg-xxxxxxxx] # Default VPC SG (so we can access the EFS)
 
     # Additional options in the boto docs.
 
@@ -113,14 +113,16 @@ setup_commands:
         sudo apt-get -y install ./build/amazon-efs-utils*deb;
         cd $HOME;
         mkdir efs;
-        sudo mount -t efs fs-xxxxxxxx:/ efs; # Need to replace the efs ID with yours
+        sudo mount -t efs fs-xxxxxxxx:/ efs;
         sudo chmod 777 efs;
-    - sudo ln -s /usr/bin/python3 /usr/bin/python
     - sudo apt -y install python3-pip
     - pip3 install -U pip
     - pip3 install wheel ray
-    # ADDITIONAL SETUP COMMANDS, e.g. git clone ... pip3 install -r requirements.txt ...
+    - sudo ln -s /usr/bin/python3 /usr/bin/python
+    # ADDITIONAL SETUP COMMANDS, e.g. git clone ... pip2 install -r requirements.txt ...
     # NOTE: you must use pip3, pip will not work.
+
+
 
 # Custom commands that will be run on the head node after common setup.
 head_setup_commands:
