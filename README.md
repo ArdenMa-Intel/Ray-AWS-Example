@@ -145,11 +145,12 @@ Throughout this example you will want to monitor your instances using the AWS EC
     - **Must update the security group and filesystem IDs**
 3. Execute "`ray up aws_example.yaml`" to start up the cluster.
     - You should check the EC2 dashboard at this point to make sure the proper number of instances are allocated, might take a minute.
-4. Execute "`ray monitor aws_example.yaml`" to see how the cluster is doing.
+4. Execute "`ray monitor aws_example.yaml`" to see how the cluster is doing. Make sure the requeseted amount of resources are available (should have 1 CPU per t2.micro instance).
 5. Execute "`ray submit aws_example.yaml ray_test_script.py`" to submit the test script to the cluster. Wait untill you see results (may take a minute or two).
+    - This should take a minute on a single cpu/node, 30 seconds on 2 cpus/nodes, etc.
     - If it takes too long, just change the sleep period or number of tasks in the script
     - This will generate logs from each node in "~/efs/logs/tasks"
-6. Execute "`ray attach aws_example.yaml`" to ssh into the head node. You will want to "`ls efs/logs/tasks`" and confirm that all 40 logs (or however many you set) are present.
+6. Execute "`ray attach aws_example.yaml`" to ssh into the head node. You will want to "`ls efs/logs/tasks`" and confirm that all 20 logs (or however many you set) are present. Use the command "`cat efs/logs/tasks/*`" to print the contents of all the logs to the terminal.
 7. Execute "`ray down aws_example.yaml`" to tear down the cluster.
     - You should check the EC2 dashboard at this point to make sure that all instances are stopped.
 
