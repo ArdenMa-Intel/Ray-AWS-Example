@@ -6,6 +6,7 @@
 - See AWS config example: https://github.com/ray-project/ray/blob/master/python/ray/autoscaler/aws/example-full.yaml
 
 # Preliminary Setup:
+- Note: this documentation and demo were all done on a system running **Ubuntu 18.04**.
 - Before starting the following instructions you should already have setup your AWS account and switched to the right region etc.
 - Here is some instructions on how to setup groups and users: https://docs.aws.amazon.com/IAM/latest/UserGuide/getting-started_create-admin-group.html
 - In addition you should have a python script which uses Ray that will be deployed on the cluster.
@@ -137,7 +138,7 @@
 - If using the EFS to log files, then they should all be in the EFS (at /home/ubuntu/efs on the AWS instances) at this point
 
 # Example Usage
-Throughout this example you will want to monitor your instances using the AWS EC2 dashboard to see if instances are being created and stopped properly.
+Throughout this example you will want to monitor your instances using the AWS EC2 dashboard to see if instances are being created and stopped properly. Be sure to clone this repo prior to starting the example.
 
 1. Create a virtual environment and "`pip install -r requirements.txt`" to install boto3 and ray.
 2. Modify "aws_example.yaml" as necessary
